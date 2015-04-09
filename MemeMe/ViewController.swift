@@ -10,13 +10,25 @@ import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
+    //attach the outlets
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var bottomText: UITextField!
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var bottomToolBar: UIToolbar!
+    
+    //this is used so we dont clear the screen after choosing an image
     var imageSelecterTookView = false
+    
+    var excludedShares = [
+        UIActivityTypePostToWeibo,
+        UIActivityTypePrint,
+        UIActivityTypeAssignToContact,
+        UIActivityTypeAddToReadingList,
+        UIActivityTypePostToVimeo,
+        UIActivityTypePostToTencentWeibo
+    ]
     
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.blackColor(),
@@ -32,6 +44,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     override func viewDidDisappear(animated: Bool) {
+        //if leaving for anything other then the image selecter clear the view
         if(!imageSelecterTookView){
             clearAndSetup()
         }
@@ -39,15 +52,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if(skipToHistory()){
-            goToHistoryPage()
-        }
         imageSelecterTookView = false
         setUpVisual()
         self.subscribeToKeyboardNotifications()
     }
     
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        //get rid of subscriptions
+        self.unsubscribeFromKeyboardNotifications()
+    }
+    
     func setUpVisual(){
+        //this does all the attributes and setup for the screen
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         topText.defaultTextAttributes = memeTextAttributes
         bottomText.defaultTextAttributes = memeTextAttributes
@@ -56,6 +74,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func clearAndSetup(){
+        //this makes sure everything is empty for the user to make a new meme
         imageView.image = nil
         topText.text = nil
         bottomText.text = nil
@@ -63,55 +82,43 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bottomToolBar.hidden = false
     }
     
-    func skipToHistory() -> Bool {
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as AppDelegate
-        let memes = appDelegate.memes
-        let skip = memes.count > 0 && appDelegate.starting
-        return skip
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.unsubscribeFromKeyboardNotifications()
-    }
-    
     @IBAction func getImageFromCollection(sender: UIBarButtonItem) {
+        //this prevents clearing the screen
         imageSelecterTookView = true
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        self.presentViewController(picker, animated: true, completion: nil)
+        buildImagePicker(UIImagePickerControllerSourceType.PhotoLibrary)
     }
 
     @IBAction func getImageFromCamera(sender: UIBarButtonItem) {
+        //this prevents clearing the screen
         imageSelecterTookView = true
+        buildImagePicker(UIImagePickerControllerSourceType.Camera)
+    }
+    
+    func buildImagePicker(source: UIImagePickerControllerSourceType){
+        //build an image picker and tell it to use the camera
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.sourceType = UIImagePickerControllerSourceType.Camera
+        picker.sourceType = source
         self.presentViewController(picker, animated: true, completion: nil)
     }
     
     @IBAction func saveButtonClicked(sender: AnyObject) {
+        //make the meme
         let meme = Meme()
         meme.topText = topText.text
         meme.bottomText = bottomText.text
         meme.originalImage = imageView.image!
         meme.memedImage = generateMemedImage()
         
+        //build activity view
         let activityViewController = UIActivityViewController(activityItems: [meme], applicationActivities: nil)
-        activityViewController.excludedActivityTypes =  [
-            UIActivityTypePostToWeibo,
-            UIActivityTypePrint,
-            UIActivityTypeAssignToContact,
-            UIActivityTypeAddToReadingList,
-            UIActivityTypePostToVimeo,
-            UIActivityTypePostToTencentWeibo
-        ]
+        activityViewController.excludedActivityTypes = excludedShares
+        //show the activity view
         self.presentViewController(activityViewController,
             animated: true, 
             completion: nil)
         
+        //on completion of the activity view save meme and show sent memes
         activityViewController.completionHandler = {(activityType, completed:Bool) in
             if completed {
                 self.saveMeme(meme)
@@ -127,6 +134,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func saveMeme(meme: Meme){
+        //add the meme to the appDelegate
         let object = UIApplication.sharedApplication().delegate
         let appDelegate = object as AppDelegate
         appDelegate.memes.append(meme)
@@ -137,6 +145,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        //when image picker is done set up all things for finishing memes
         imageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
         topToolBar.hidden = false
         bottomToolBar.hidden = true
@@ -144,6 +153,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        //if they cancel, just dismiss
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -180,6 +190,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func generateMemedImage() -> UIImage
     {
+        //hid the toolbars
         topToolBar.hidden = true
         bottomToolBar.hidden = true
         
