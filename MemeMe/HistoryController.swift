@@ -8,7 +8,6 @@
 //  This is a parent class for the two sent memes pages so that some of there functionality can be shared
 
 import UIKit
-import Foundation
 
 class HistoryController: UIViewController {
     var memes: [Meme]!

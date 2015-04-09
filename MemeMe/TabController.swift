@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import Foundation
 
 class TabController: UITabBarController {
     
     @IBAction func newMeme(sender: AnyObject) {
+        //this is for when the user clicks the + button allowing them to make a new meme
         navigationController?.performSegueWithIdentifier("makeAMeme", sender: self)
     }
 }

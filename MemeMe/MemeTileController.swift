@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Nicholas Busby. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class MemeTileController: UICollectionViewCell {
