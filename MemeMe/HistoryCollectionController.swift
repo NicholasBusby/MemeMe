@@ -13,6 +13,7 @@ class HistoryCollectionController: HistoryController, UICollectionViewDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        //set the collection view to use this class for its functionality
         collectionView.delegate = self
     }
     
@@ -27,12 +28,15 @@ class HistoryCollectionController: HistoryController, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("memeCell", forIndexPath: indexPath) as MemeTileController
         let meme = self.memes[indexPath.row]
+        
+        //set the image
         cell.image.image = meme.memedImage
-        cell.selected = false
+        
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        //on selected show the meme detail
         appDelegate.meme = memes[indexPath.row]
         showMemeDetail()
     }

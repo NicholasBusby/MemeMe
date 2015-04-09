@@ -12,6 +12,7 @@ class HistoryTableController: HistoryController, UITableViewDataSource, UITableV
     @IBOutlet weak var tableView: UITableView!
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        //get the table view to call on this for its functionality
         tableView.delegate = self
     }
     
@@ -27,7 +28,7 @@ class HistoryTableController: HistoryController, UITableViewDataSource, UITableV
         let cell = tableView.dequeueReusableCellWithIdentifier("memeCell") as UITableViewCell
         let meme = self.memes[indexPath.row]
         
-        // Set the name and image
+        // Set the text and image
         cell.textLabel?.text = meme.topText + " " + meme.bottomText
         cell.imageView?.image = meme.memedImage
         
@@ -35,6 +36,7 @@ class HistoryTableController: HistoryController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        //on click call the meme detail
         appDelegate.meme = memes[indexPath.row]
         showMemeDetail()
     }

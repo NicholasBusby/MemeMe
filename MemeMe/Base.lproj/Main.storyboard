@@ -216,7 +216,6 @@
         <!--Tiles-->
         <scene sceneID="p7d-R0-zev">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wqj-uS-BfC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="g8m-TT-qi7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Tiles" id="0no-dM-AmW"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hy7-Vw-CSo">
@@ -227,6 +226,7 @@
                         <segue destination="zfZ-Gj-W02" kind="relationship" relationship="rootViewController" id="Xd5-1n-Z6j"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wqj-uS-BfC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2775" y="2228"/>
         </scene>
@@ -239,6 +239,7 @@
                         <viewControllerLayoutGuide type="bottom" id="JMu-KG-Jxr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2T7-89-eev">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZAO-Ha-ffd">
@@ -255,7 +256,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fg0-jF-B77">
@@ -314,10 +315,10 @@
                                 <exclude reference="ZAO-Ha-ffd"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="ixC-GI-7g2"/>
                                 <exclude reference="3IO-nx-Pa8"/>
                                 <exclude reference="P0J-eA-2Bi"/>
                                 <exclude reference="XSS-8i-MNI"/>
-                                <exclude reference="ixC-GI-7g2"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -325,10 +326,10 @@
                                 <include reference="ZAO-Ha-ffd"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="ixC-GI-7g2"/>
                                 <include reference="3IO-nx-Pa8"/>
                                 <include reference="P0J-eA-2Bi"/>
                                 <include reference="XSS-8i-MNI"/>
-                                <include reference="ixC-GI-7g2"/>
                             </mask>
                         </variation>
                     </view>
@@ -350,6 +351,7 @@
                         <viewControllerLayoutGuide type="bottom" id="TWL-a8-YAp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rK2-Kz-0Cl">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Obm-Fq-jbs">
@@ -402,7 +404,6 @@
         <!--Table-->
         <scene sceneID="ED2-c0-iHL">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qkf-pR-8gL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="Y7b-xa-CMb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Table" id="9ay-LJ-Tvd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fib-f5-D82">
@@ -413,6 +414,7 @@
                         <segue destination="y9H-dt-0Pi" kind="relationship" relationship="rootViewController" id="XmG-nA-xfA"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qkf-pR-8gL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2775" y="1480"/>
         </scene>
@@ -425,6 +427,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Bb5-YL-Ftp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8ZE-xa-uLq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1cR-CP-j6L">
@@ -455,10 +458,10 @@
                                 <exclude reference="1cR-CP-j6L"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="etz-rm-OtM"/>
                                 <exclude reference="1Gb-iI-UDY"/>
                                 <exclude reference="HFR-zj-y5h"/>
                                 <exclude reference="Owu-el-ivF"/>
-                                <exclude reference="etz-rm-OtM"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -466,10 +469,10 @@
                                 <include reference="1cR-CP-j6L"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="etz-rm-OtM"/>
                                 <include reference="1Gb-iI-UDY"/>
                                 <include reference="HFR-zj-y5h"/>
                                 <include reference="Owu-el-ivF"/>
-                                <include reference="etz-rm-OtM"/>
                             </mask>
                         </variation>
                     </view>

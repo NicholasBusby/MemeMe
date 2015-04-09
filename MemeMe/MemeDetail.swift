@@ -13,6 +13,7 @@ class MemeDetail: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
+        //get the meme and display it
         let object = UIApplication.sharedApplication().delegate
         let appDelegate = object as AppDelegate
         imageView.image = appDelegate.meme.memedImage
